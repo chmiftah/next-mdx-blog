@@ -1,0 +1,24 @@
+---
+title: Laravel - order data by created_at
+date: '2022-10-31'
+tags: ['Laravel']
+draft: false
+images: ['/static/images/from-wp-to-nextjs.jpg', '/static/images/from-wp-to-nextjs.jpg']
+summary: 'Order data by created_at'
+---
+
+normally you use this
+
+```php
+User::orderBy('created_at', 'desc')->get();
+```
+You can do it quickly to sort by ascending
+```php
+User::latest()->get();
+```
+and use this to sort by descending
+```php
+User::oldest()->get();
+```
+---
+

@@ -1,0 +1,44 @@
+---
+title: Laravel - Handle repeated query with scope
+date: '2022-10-31'
+tags: ['Laravel']
+draft: false
+images: ['/static/images/from-wp-to-nextjs.jpg', '/static/images/from-wp-to-nextjs.jpg']
+summary: 'Handle repeated query with scope'
+---
+
+
+You can handle repeated query in controller using laravel `Scope`
+
+your model
+```php
+public function scopeActive($query) {
+    return $query->where('active', 1);
+}
+```
+
+your controller
+```php
+$users = User::active()->get();
+```
+
+
+ ## Combine and chain Query Scopes in Eloquent
+your model
+```php
+public function scopeActive($query) {
+    return $query->where('active', 1);
+}
+
+public function scopeRegisteredWithinDays($query, $days) {
+    return $query->where('created_at', '>=', now()->subDays($days));
+}
+```
+
+your controller
+```php
+$users = User::registeredWithinDays(30)->active()->get();
+```
+
+---
+

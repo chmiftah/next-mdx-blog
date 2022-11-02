@@ -1,0 +1,40 @@
+---
+title: PHP - Compare multimedimentional array
+date: '2022-11-02'
+tags: ['PHP']
+draft: false
+images: ['/static/images/from-wp-to-nextjs.jpg', '/static/images/from-wp-to-nextjs.jpg']
+summary: 'Compare multimedimentional array'
+---
+
+to compare 2 multidimensional arrays you can use this function
+
+```php
+ function array_diff_assoc_recursive($array1, $array2)
+        {
+            foreach ($array1 as $key => $value) {
+                if (is_array($value)) {
+                    if (!isset($array2[$key])) {
+                        $difference[$key] = $value;
+                    } elseif (!is_array($array2[$key])) {
+                        $difference[$key] = $value;
+                    } else {
+                        $new_diff = array_diff_assoc_recursive($value, $array2[$key]);
+                        if ($new_diff != FALSE) {
+                            $difference[$key] = $new_diff;
+                        }
+                    }
+                } elseif (!isset($array2[$key]) || $array2[$key] != $value) {
+                    $difference[$key] = $value;
+                }
+            }
+            return !isset($difference) ? [] : $difference;
+        }
+
+
+        //and call function
+        return array_diff_assoc_recursive($data1, $data);
+
+```
+
+---
